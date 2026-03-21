@@ -1,4 +1,4 @@
-import sys
+"""Player module: represents a single participant in a MoneyPoly game."""
 from moneypoly.config import STARTING_BALANCE, BOARD_SIZE, GO_SALARY, JAIL_POSITION
 
 
@@ -42,10 +42,10 @@ class Player:
         Awards the Go salary if the player passes or lands on Go.
         Returns the new board position.
         """
-        old_position = self.position
+        prev_position = self.position
         self.position = (self.position + steps) % BOARD_SIZE
 
-        if self.position == 0:
+        if self.position < prev_position or self.position == 0:
             self.add_money(GO_SALARY)
             print(f"  {self.name} landed on Go and collected ${GO_SALARY}.")
 

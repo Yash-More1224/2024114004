@@ -1,8 +1,9 @@
-import math
+"""Bank module: manages the game bank's funds, loans, and transactions."""
 from moneypoly.config import BANK_STARTING_FUNDS
 
 
 class Bank:
+    """Manages the game bank's reserves, loans and financial transactions."""
     def __init__(self):
         self._funds = BANK_STARTING_FUNDS
         self._loans_issued = []

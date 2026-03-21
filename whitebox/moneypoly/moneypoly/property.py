@@ -1,3 +1,6 @@
+"""Property module: defines purchasable properties and colour groups."""
+
+
 class Property:
     """Represents a single purchasable property tile on the MoneyPoly board."""
 
@@ -47,10 +50,9 @@ class Property:
         """
         if not self.is_mortgaged:
             return 0
-        else:
-            cost = int(self.mortgage_value * 1.1)
-            self.is_mortgaged = False
-            return cost
+        cost = int(self.mortgage_value * 1.1)
+        self.is_mortgaged = False
+        return cost
 
     def is_available(self):
         """Return True if this property can be purchased (unowned, not mortgaged)."""
@@ -62,6 +64,8 @@ class Property:
 
 
 class PropertyGroup:
+    """Represents a colour group containing related properties."""
+
     def __init__(self, name, color):
         self.name = name
         self.color = color
@@ -77,7 +81,7 @@ class PropertyGroup:
         """Return True if every property in this group is owned by `player`."""
         if player is None:
             return False
-        return any(p.owner == player for p in self.properties)
+        return all(p.owner == player for p in self.properties)
 
     def get_owner_counts(self):
         """Return a dict mapping each owner to how many properties they hold in this group."""
