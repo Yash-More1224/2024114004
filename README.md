@@ -8,6 +8,9 @@ From the project root, run:
 - **Whitebox code:**
   `python whitebox/code/main.py`
 
+- **Integration CLI:**
+  `python integration/code/main.py`
+
 
 ## How to run the tests
 
