@@ -521,15 +521,16 @@ class TestGameBuyProperty:
         assert prop.owner == alice
         assert alice.balance == STARTING_BALANCE - prop.price
 
-    def test_buy_fails_insufficient_funds(self):
-        """Bug check: buy_property uses <= instead of <."""
+    def test_buy_works_with_exact_balance(self):
+        """A player should be able to buy when balance equals price exactly."""
         g = Game(["Alice", "Bob"])
         alice = g.players[0]
         prop = g.board.get_property_at(1)  # $60
         alice.balance = prop.price  # exactly equal — should be able to buy
         result = g.buy_property(alice, prop)
-        # BUG: condition is `balance <= price` so buying with exact amount fails
-        assert result is False  # documents the bug
+        assert result is True
+        assert prop.owner == alice
+        assert alice.balance == 0
 
     def test_buy_not_enough_money(self):
         g = Game(["Alice", "Bob"])
@@ -649,8 +650,7 @@ class TestGameFindWinner:
         g.players[0].balance = 2000
         g.players[1].balance = 500
         winner = g.find_winner()
-        # BUG: current code uses min() — documents the bug
-        assert winner.name == "Bob"   # wrong: should be Alice
+        assert winner.name == "Alice"
 
     def test_find_winner_empty(self):
         g = Game(["Alice", "Bob"])
