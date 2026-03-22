@@ -22,5 +22,18 @@ From the project root, run:
 - **Integration tests:**
   `python -m pytest integration/tests/ -v`
 
+## Static analysis (Whitebox)
+
+From the project root, run:
+
+- `pylint whitebox/code/moneypoly`
+
+## Blackbox API container setup
+
+Before running blackbox tests, from the project root run:
+
+- `docker load -i blackbox/quickcart_image_x86.tar`
+- `docker run -d --name quickcart -p 8080:8080 quickcart` (creates a new container)
+- if you already have the container, just run: `docker start quickcart`
 - **Blackbox tests:**
   `python -m pytest blackbox/tests/test_quickcart.py -q`
